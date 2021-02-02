@@ -9,7 +9,7 @@ Using this source code, you can freely create your own creative game.
 - pygame
   
 #### Reference:
-  * Github: <https://https://github.com/KwanghyeonJeong/PygameFrame>
+  * Github: <https://github.com/KwanghyeonJeong/PygameFrame>
   
 ##### Contact:
   * e-mail: <jkhpro1003@gmail.com>
