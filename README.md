@@ -1,8 +1,6 @@
 # Avoiding_Poop
 
-It is the default source code for smooth use of pygame.
-
-Using this source code, you can freely create your own creative game.
+It's a game to avoid poo falling from the top.
 
 ### **Requirments:**
 - python3 or late
