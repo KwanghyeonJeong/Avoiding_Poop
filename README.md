@@ -4,6 +4,8 @@ It's a game to avoid poop falling from the top.
 
 ### **Requirments:**
 - python3 or late
+- random
+- os
 - pygame
   
 #### Reference:
