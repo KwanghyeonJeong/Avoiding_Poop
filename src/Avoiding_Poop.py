@@ -1,4 +1,5 @@
 # import
+import os
 import pygame
 from random import *
 ################################################################
@@ -22,10 +23,13 @@ clock = pygame.time.Clock()
 # 이곳에 게임 초기화 코드 추가한다. (Add game initialization code here.)
 # Background, gameimg, Coordinates, speed, font, etc ...
 
+current_path = os.path.dirname(__file__) # 현재 파일의 위치 반환
+img_path = os.path.join(current_path, "imgs") # imgs 폴더 위치 반환
+
 # game name
 pygame.display.set_caption("똥 피하기")
 # Background
-background = pygame.image.load("") # input Path about "bath.jpg
+background = pygame.image.load(os.path.join(img_path,"bath.jpg")) # input Path about "bath.jpg
 
 # time
 # pygame.time.get_ticks()
@@ -33,7 +37,7 @@ background = pygame.image.load("") # input Path about "bath.jpg
 # 캐릭터 불러오기
 class character:
     def __init__(self,screen_width,screen_height):
-        self.character = pygame.image.load("") # input Path about "sonic.png" in img/
+        self.character = pygame.image.load(os.path.join(img_path,"sonic.png")) # input Path about "sonic.png" in img/
         self.size = self.character.get_rect().size # 이미지 크기 구해오기
         self.width = self.size[0]
         self.height = self.size[1]
@@ -46,7 +50,7 @@ class character:
 # 똥 불러오기
 class poop:
     def __init__(self,screen_width,screen_height):
-        self.poop = pygame.image.load("") # input Path about "poop.png" in img/
+        self.poop = pygame.image.load(os.path.join(img_path,"poop.png")) # input Path about "poop.png" in img/
         self.size = self.poop.get_rect().size # 이미지 크기 구해오기
         self.width = self.size[0]
         self.height = self.size[1]
@@ -72,7 +76,7 @@ class poop:
 
 # 총 시간
 total_time = 30
-# 시작 사긴
+# 시작 시간
 start_ticks = pygame.time.get_ticks() # 시작 틱 정보 받아오기
 
 sonic = character(screen_width,screen_height)
@@ -82,7 +86,10 @@ poop3 = poop(screen_width,screen_height)
 
 
 # 이동할 좌표
+# 좌우 이동 변수를 2가지로 나누었다. 빠르게 키보드를 입력할 시 멈추는 현상을 해결 할 수 있다.
 to_x = 0
+to_x_left = 0
+to_x_right = 0
 to_y = 0
 
 # 게임실행
@@ -96,22 +103,27 @@ while running:
         # 이곳에 이벤트 처리 코드를 추가(Add Event Handler Code here)
         if event.type == pygame.KEYDOWN: #키가 눌러졌는지 확인
             if event.key == pygame.K_LEFT:
-                to_x -= sonic.speed
+                to_x_left -= sonic.speed
                 sonic.direction=1
             elif event.key == pygame.K_RIGHT:
-                to_x += sonic.speed
+                to_x_right += sonic.speed
                 sonic.direction=2
-        if event.type == pygame.KEYUP: #키를 뗐는지 확인
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                to_x = 0
+        if event.type == pygame.KEYUP: #키를 뗐는지 확인 - 왼쪽 키 오른쪽 키각각 처리...
+            if event.key == pygame.K_LEFT:
+                to_x_left = 0
                 sonic.direction=0
+            elif event.key == pygame.K_RIGHT:
+                to_x_right = 0
+                sonic.direction=0
+        # 오른쪽 왼쪽 따로 처리한 것을 더함
+        to_x = to_x_left + to_x_right
     # 키보드 이벤트 발생 후 캐릭터 이동, 프레임별 보정.
     if sonic.direction == 0:
-        sonic.character = pygame.image.load("") # input Path about "sonic.jpg"
+        sonic.character = pygame.image.load(os.path.join(img_path,"sonic.png")) # input Path about "sonic.png"
     elif sonic.direction == 1:
-        sonic.character = pygame.image.load("sonic_left2.png") # input Path about "sonic_left.png" in img/
+        sonic.character = pygame.image.load(os.path.join(img_path,"sonic_left.png")) # input Path about "sonic_left.png" in img/
     elif sonic.direction == 2:
-        sonic.character = pygame.image.load("") # input Path about "sonic_right.png" in img/
+        sonic.character = pygame.image.load(os.path.join(img_path,"sonic_right.png")) # input Path about "sonic_right.png" in img/
     sonic.x_pos += to_x * dt # FPS 보정
     # 가로 경계 처리
     if sonic.x_pos < 0:
