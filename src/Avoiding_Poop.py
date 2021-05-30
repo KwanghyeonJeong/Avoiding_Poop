@@ -23,13 +23,10 @@ clock = pygame.time.Clock()
 # 이곳에 게임 초기화 코드 추가한다. (Add game initialization code here.)
 # Background, gameimg, Coordinates, speed, font, etc ...
 
-current_path = os.path.dirname(__file__) # 현재 파일의 위치 반환
-img_path = os.path.join(current_path, "imgs") # imgs 폴더 위치 반환
-
 # game name
 pygame.display.set_caption("똥 피하기")
 # Background
-background = pygame.image.load(os.path.join(img_path,"bath.jpg")) # input Path about "bath.jpg
+background = pygame.image.load("imgs/bath.jpg") # input Path about "bath.jpg
 
 # time
 # pygame.time.get_ticks()
@@ -37,7 +34,7 @@ background = pygame.image.load(os.path.join(img_path,"bath.jpg")) # input Path a
 # 캐릭터 불러오기
 class character:
     def __init__(self,screen_width,screen_height):
-        self.character = pygame.image.load(os.path.join(img_path,"sonic.png")) # input Path about "sonic.png" in img/
+        self.character = pygame.image.load("imgs/sonic.png") # input Path about "sonic.png" in img/
         self.size = self.character.get_rect().size # 이미지 크기 구해오기
         self.width = self.size[0]
         self.height = self.size[1]
@@ -50,7 +47,7 @@ class character:
 # 똥 불러오기
 class poop:
     def __init__(self,screen_width,screen_height):
-        self.poop = pygame.image.load(os.path.join(img_path,"poop.png")) # input Path about "poop.png" in img/
+        self.poop = pygame.image.load("imgs/poop.png") # input Path about "poop.png" in img/
         self.size = self.poop.get_rect().size # 이미지 크기 구해오기
         self.width = self.size[0]
         self.height = self.size[1]
@@ -119,11 +116,11 @@ while running:
         to_x = to_x_left + to_x_right
     # 키보드 이벤트 발생 후 캐릭터 이동, 프레임별 보정.
     if sonic.direction == 0:
-        sonic.character = pygame.image.load(os.path.join(img_path,"sonic.png")) # input Path about "sonic.png"
+        sonic.character = pygame.image.load("imgs/sonic.png") # input Path about "sonic.png"
     elif sonic.direction == 1:
-        sonic.character = pygame.image.load(os.path.join(img_path,"sonic_left.png")) # input Path about "sonic_left.png" in img/
+        sonic.character = pygame.image.load("imgs/sonic_left.png") # input Path about "sonic_left.png" in img/
     elif sonic.direction == 2:
-        sonic.character = pygame.image.load(os.path.join(img_path,"sonic_right.png")) # input Path about "sonic_right.png" in img/
+        sonic.character = pygame.image.load("imgs/sonic_right.png") # input Path about "sonic_right.png" in img/
     sonic.x_pos += to_x * dt # FPS 보정
     # 가로 경계 처리
     if sonic.x_pos < 0:
